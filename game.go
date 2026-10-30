@@ -23,6 +23,8 @@ const (
 	Titlehotland1 = 1
 	Titlehotland2 = 2
 	Titlehotland3 = 3
+	Titlehotland4 = 4
+	Titlehotland5 = 5
 )
 
 type room struct {
@@ -33,12 +35,31 @@ type room struct {
 var openRoom = room{
 	roomNAME: "startroom",
 	Tiles: [][]int{
-		{0, 0, 0, 0, 1, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0},
-		{3, 3, 3, 3, 3, 3, 3, 3},
-		{2, 2, 2, 2, 2, 2, 2, 2},
-		{1, 1, 1, 1, 1, 1, 1, 1},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+		{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
+		{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+		{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+		{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	},
+}
+
+var walkible = map[int]bool{
+	0: false,
+	1: false,
+	2: false,
+	3: true,
+	4: false,
+	5: false,
 }
 
 type Game struct {
@@ -56,6 +77,21 @@ type Game struct {
 	hotland1    *ebiten.Image
 	hotland2    *ebiten.Image
 	hotland3    *ebiten.Image
+	hotland4    *ebiten.Image
+	hotland5    *ebiten.Image
+}
+
+func (g *Game) CanMove(x, y int) bool {
+	const titlesize = 32
+	titlex := x / titlesize
+	titley := y / titlesize
+	if titley < 0 || titley >= len(openRoom.Tiles) {
+		return false
+	}
+	if titlex < 0 || titlex >= len(openRoom.Tiles[titley]) {
+		return false
+	}
+	return walkible[openRoom.Tiles[titley][titlex]]
 }
 
 func loadImage(path string) *ebiten.Image {
@@ -113,16 +149,24 @@ func (g *Game) Updatestart() {
 func (g *Game) Updatemovement() error {
 
 	if ebiten.IsKeyPressed(ebiten.KeyArrowRight) {
-		g.Xplayer += 3
+		if g.CanMove(g.Xplayer+3, g.Yplayer) {
+			g.Xplayer += 3
+		}
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyArrowLeft) {
-		g.Xplayer -= 3
+		if g.CanMove(g.Xplayer-3, g.Yplayer) {
+			g.Xplayer -= 3
+		}
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyArrowUp) {
-		g.Yplayer -= 3
+		if g.CanMove(g.Xplayer, g.Yplayer-3) {
+			g.Yplayer -= 3
+		}
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyArrowDown) {
-		g.Yplayer += 3
+		if g.CanMove(g.Xplayer, g.Yplayer+3) {
+			g.Yplayer += 3
+		}
 	}
 
 	return nil
@@ -145,6 +189,8 @@ func (g *Game) DrawRoom(screen *ebiten.Image) {
 		g.hotland1,
 		g.hotland2,
 		g.hotland3,
+		g.hotland4,
+		g.hotland5,
 	}
 
 	const tileSize = 32
@@ -211,11 +257,13 @@ func main() {
 		player:    loadImage("assets/goferimage.png"),
 		sansheadd: loadImage("assets/sanshead.png"),
 		Xplayer:   100,
-		Yplayer:   100,
-		hotland0:  loadImage("assets/0roadmap(hotland).png"),
-		hotland1:  loadImage("assets/1roadmap(hotland).png"),
-		hotland2:  loadImage("assets/2roadmap(hotland).png"),
-		hotland3:  loadImage("assets/3roadmap(hotland).png"),
+		Yplayer:   350,
+		hotland0:  loadImage("assets/hotland/0title.png"),
+		hotland1:  loadImage("assets/hotland/1title.png"),
+		hotland2:  loadImage("assets/hotland/2title.png"),
+		hotland3:  loadImage("assets/hotland/3title.png"),
+		hotland4:  loadImage("assets/hotland/4title.png"),
+		hotland5:  loadImage("assets/hotland/5title.png"),
 	}
 
 	if err := ebiten.RunGame(game); err != nil {
