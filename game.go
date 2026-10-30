@@ -18,6 +18,7 @@ const (
 	statemove
 	statefight
 )
+
 const (
 	Titlehotland0 = 0
 	Titlehotland1 = 1
@@ -30,26 +31,49 @@ const (
 type room struct {
 	roomNAME string
 	Tiles    [][]int
+	roomuse  int
 }
 
-var openRoom = room{
+var Room1 = room{
 	roomNAME: "startroom",
+	roomuse:  0,
 	Tiles: [][]int{
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-		{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
-		{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
-		{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
-		{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
-		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+		{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
+		{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+		{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+		{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	},
+}
+var Room2 = room{
+	roomNAME: "startroom",
+	roomuse:  1,
+	Tiles: [][]int{
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+		{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
+		{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+		{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3, 3},
+		{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	},
 }
 
@@ -63,6 +87,8 @@ var walkible = map[int]bool{
 }
 
 type Game struct {
+	direction   string
+	roomuse     int
 	State       gamestate
 	Selected    int
 	Xplayer     int
@@ -81,17 +107,45 @@ type Game struct {
 	hotland5    *ebiten.Image
 }
 
+func (g *Game) RoomSwitch(direction string) {
+	switch direction {
+	case "right":
+		if g.roomuse == 0 {
+			g.roomuse = 1
+			g.Xplayer = 6
+		}
+	case "left":
+		if g.roomuse == 1 {
+			g.roomuse = 0
+			g.Xplayer = 634
+		}
+	}
+}
+
 func (g *Game) CanMove(x, y int) bool {
 	const titlesize = 32
+	var currRoom *room
+
+	switch g.roomuse {
+	case 0:
+		currRoom = &Room1
+
+	case 1:
+		currRoom = &Room2
+	default:
+		return false
+
+	}
 	titlex := x / titlesize
 	titley := y / titlesize
-	if titley < 0 || titley >= len(openRoom.Tiles) {
+	if titley < 0 || titley >= len(currRoom.Tiles) {
 		return false
 	}
-	if titlex < 0 || titlex >= len(openRoom.Tiles[titley]) {
+	if titlex < 0 || titlex >= len(currRoom.Tiles[titley]) {
 		return false
 	}
-	return walkible[openRoom.Tiles[titley][titlex]]
+
+	return walkible[currRoom.Tiles[titley][titlex]]
 }
 
 func loadImage(path string) *ebiten.Image {
@@ -149,21 +203,34 @@ func (g *Game) Updatestart() {
 func (g *Game) Updatemovement() error {
 
 	if ebiten.IsKeyPressed(ebiten.KeyArrowRight) {
-		if g.CanMove(g.Xplayer+3, g.Yplayer) {
+		g.direction = "right"
+
+		if g.Xplayer+3 >= 640 {
+			g.RoomSwitch("right")
+
+		} else if g.CanMove(g.Xplayer+3, g.Yplayer) {
 			g.Xplayer += 3
+
 		}
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyArrowLeft) {
-		if g.CanMove(g.Xplayer-3, g.Yplayer) {
+		g.direction = "left"
+		if g.Xplayer-3 <= 0 {
+			g.RoomSwitch("left")
+
+		} else if g.CanMove(g.Xplayer-3, g.Yplayer) {
 			g.Xplayer -= 3
+
 		}
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyArrowUp) {
+		g.direction = "up"
 		if g.CanMove(g.Xplayer, g.Yplayer-3) {
 			g.Yplayer -= 3
 		}
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyArrowDown) {
+		g.direction = "down"
 		if g.CanMove(g.Xplayer, g.Yplayer+3) {
 			g.Yplayer += 3
 		}
@@ -195,15 +262,30 @@ func (g *Game) DrawRoom(screen *ebiten.Image) {
 
 	const tileSize = 32
 
-	for y, row := range openRoom.Tiles {
-		for x, tile := range row {
-			op := &ebiten.DrawImageOptions{}
-			op.GeoM.Translate(
-				float64(x*tileSize),
-				float64(y*tileSize),
-			)
+	if g.roomuse == 0 {
+		for y, row := range Room1.Tiles {
+			for x, tile := range row {
+				op := &ebiten.DrawImageOptions{}
+				op.GeoM.Translate(
+					float64(x*tileSize),
+					float64(y*tileSize),
+				)
 
-			screen.DrawImage(tiles[tile], op)
+				screen.DrawImage(tiles[tile], op)
+			}
+		}
+	}
+	if g.roomuse == 1 {
+		for y, row := range Room2.Tiles {
+			for x, tile := range row {
+				op := &ebiten.DrawImageOptions{}
+				op.GeoM.Translate(
+					float64(x*tileSize),
+					float64(y*tileSize),
+				)
+
+				screen.DrawImage(tiles[tile], op)
+			}
 		}
 	}
 }
@@ -249,6 +331,7 @@ func (g *Game) Layout(
 }
 
 func main() {
+
 	ebiten.SetWindowSize(960, 720)
 	ebiten.SetWindowTitle("coretale")
 
