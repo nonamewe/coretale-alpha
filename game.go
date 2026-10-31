@@ -236,7 +236,7 @@ func (g *Game) Updatemovement() error {
 		}
 	}
 
-	return g.Yplayer && g.Xplayer
+	return nil
 }
 
 func (g *Game) Update() error {
